@@ -15,9 +15,41 @@ const messageSchema = new mongoose.Schema(
     text: {
       type: String,
     },
+    replyTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+    },
+    isEdited: {
+      type: Boolean,
+      default: false,
+    },
+    isForwarded: {
+      type: Boolean,
+      default: false,
+    },
     image: {
       type: String,
     },
+    voiceNote: {
+      type: String,
+    },
+    isRead: {
+      type: Boolean,
+      default: false,
+    },
+    // Add new fields for reply and forwarding
+    replyTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+    },
+    isEdited: {
+      type: Boolean,
+      default: false,
+    },
+    isForwarded: {
+      type: Boolean,
+      default: false,
+    }
   },
   { timestamps: true }
 );

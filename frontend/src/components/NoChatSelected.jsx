@@ -1,6 +1,6 @@
 import { MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import logo from '../assets/spotvibelogo.png';
+import logo from '../assets/nexa.png';
 
 const NoChatSelected = () => {
   const navigate = useNavigate(); // Get navigate function
@@ -24,7 +24,7 @@ const NoChatSelected = () => {
           </div>
 
           <div className="w-full text-center space-y-2">
-            <h2 className="text-lg sm:text-xl font-extrabold text-slate-800 mb-1">Welcome to SpotVibe!</h2>
+            <h2 className="text-lg sm:text-xl font-extrabold text-slate-800 mb-1">Welcome to nexa chat!</h2>
             <p className="text-xs sm:text-sm text-slate-600">
               Explore music, events, and chat. There is something for everyone!
             </p>
@@ -60,7 +60,7 @@ const NoChatSelected = () => {
           {/* Additional Info */}
           <div className="text-center mt-4 max-w-lg mx-auto">
             <p className="text-xs sm:text-sm text-slate-500">
-              Start chatting, explore events, or shop for products. Join the SpotVibe community now!
+              Start chatting, explore events, or shop for products. Join the nexa community now!
             </p>
           </div>
         </div>

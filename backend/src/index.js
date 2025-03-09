@@ -16,7 +16,9 @@ dotenv.config();
 const PORT = process.env.PORT;
 const __dirname = path.resolve();
 
-app.use(express.json());
+// Update these lines to increase the payload size limit
+app.use(express.json({ limit: '5000mb' }));
+app.use(express.urlencoded({ limit: '5000mb', extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
