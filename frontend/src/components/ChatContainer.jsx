@@ -83,7 +83,7 @@ const ChatContainer = () => {
     .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   return (
-    <div className="flex-1 flex flex-col overflow-auto">
+    <div className="flex-1 flex flex-col overflow-auto max-w-full sm:max-w-lg mx-auto">
       <ChatHeader />
       <div className="p-4 border-b flex items-center gap-2">
         <input
@@ -112,9 +112,9 @@ const ChatContainer = () => {
                 {message.replyTo && <div className="bg-gray-200 p-2 rounded-lg text-sm">Replying to: {message.replyTo.text}</div>}
                 <time className="text-xs opacity-50">{formatMessageTime(message.createdAt)}</time>
               </div>
-              <div className="chat-bubble relative group p-3 rounded-lg shadow-md bg-gray-100">
+              <div className="chat-bubble relative group p-3 rounded-lg shadow-md bg-gray-100 max-w-full sm:max-w-xs">
                 {message.text && <span>{message.text} {message.isEdited && <span className="text-xs opacity-50 ml-2">(edited)</span>}</span>}
-                {message.image && <img src={message.image} alt="attachment" className="max-w-[300px] rounded-lg" />}
+                {message.image && <img src={message.image} alt="attachment" className="max-w-full sm:max-w-[300px] rounded-lg" />}
                 {message.voiceNote && <VoiceNotePlayer audioUrl={message.voiceNote} />}
                 {message.file && (
                   <a href={message.file.url} download className="btn btn-sm btn-primary">Download {message.file.name}</a>
