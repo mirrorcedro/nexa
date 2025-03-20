@@ -1,4 +1,4 @@
-import { MessageSquare } from "lucide-react";
+import { MessageCirclePlus } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import logo from '../assets/nexa.png';
 
@@ -10,9 +10,12 @@ const NoChatSelected = () => {
       <div className="w-full max-w-xs text-center space-y-3">
         {/* Icon Display */}
         <div className="flex justify-center mb-1">
-          <div className="relative">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-primary/10 flex items-center justify-center animate-bounce shadow-sm">
-              <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+          <div className="relative group cursor-pointer" onClick={() => navigate('/')}>
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary/10 flex items-center justify-center animate-pulse shadow-md border border-primary">
+              <MessageCirclePlus className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
+            </div>
+            <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-gray-700 text-white text-xs rounded-md px-2 py-1">
+              Start a Chat
             </div>
           </div>
         </div>
@@ -29,7 +32,7 @@ const NoChatSelected = () => {
               Explore music, events, and chat. There is something for everyone!
             </p>
             <p className="text-xs sm:text-sm text-slate-600 mt-1">
-              Need help? Chat with others by selecting or searching a user.
+              Need help? Click the icon above to start chatting.
             </p>
           </div>
 
