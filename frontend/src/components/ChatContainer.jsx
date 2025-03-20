@@ -83,7 +83,7 @@ const ChatContainer = () => {
     .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   return (
-    <div className="flex-1 flex flex-col overflow-auto max-w-full sm:max-w-lg mx-auto">
+    <div className="flex-1 flex flex-col overflow-auto max-w-full sm:max-w-lg mx-auto bg-blue-100 dark:bg-blue-900">
       <ChatHeader />
       <div className="p-4 border-b flex items-center gap-2">
         <input
@@ -109,10 +109,10 @@ const ChatContainer = () => {
               </div>
               <div className="chat-header mb-1 flex flex-col gap-1">
                 {message.isForwarded && <span className="text-xs opacity-50">Forwarded</span>}
-                {message.replyTo && <div className="bg-gray-200 p-2 rounded-lg text-sm">Replying to: {message.replyTo.text}</div>}
+                {message.replyTo && <div className="bg-gray-200 dark:bg-gray-700 p-2 rounded-lg text-sm">Replying to: {message.replyTo.text}</div>}
                 <time className="text-xs opacity-50">{formatMessageTime(message.createdAt)}</time>
               </div>
-              <div className="chat-bubble relative group p-3 rounded-lg shadow-md bg-gray-100 max-w-full sm:max-w-xs">
+              <div className="chat-bubble relative group p-3 rounded-lg shadow-md bg-white dark:bg-gray-800 max-w-full sm:max-w-xs">
                 {message.text && <span>{message.text} {message.isEdited && <span className="text-xs opacity-50 ml-2">(edited)</span>}</span>}
                 {message.image && <img src={message.image} alt="attachment" className="max-w-full sm:max-w-[300px] rounded-lg" />}
                 {message.voiceNote && <VoiceNotePlayer audioUrl={message.voiceNote} />}
@@ -122,26 +122,6 @@ const ChatContainer = () => {
                 <button onClick={() => toggleMessageActions(message._id)} className="absolute top-1/2 -right-4 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all">
                   <MoreVertical className="w-4 h-4" />
                 </button>
-                {messageActions.id === message._id && messageActions.show && (
-                  <div className="absolute right-0 top-8 bg-white rounded-md shadow-lg p-2 flex flex-col">
-                    <button onClick={() => { setReplyingTo(message); setMessageActions({ id: null, show: false }); }} className="flex items-center gap-2 p-2 hover:bg-gray-100">
-                      <Reply className="w-4 h-4" /> Reply
-                    </button>
-                    {message.senderId === authUser._id && (
-                      <>
-                        <button onClick={() => { setEditingMessage(message); setMessageActions({ id: null, show: false }); }} className="flex items-center gap-2 p-2 hover:bg-gray-100">
-                          <Edit className="w-4 h-4" /> Edit
-                        </button>
-                        <button onClick={() => deleteMessage(message._id)} className="flex items-center gap-2 p-2 text-red-500 hover:bg-gray-100">
-                          <Trash className="w-4 h-4" /> Delete
-                        </button>
-                      </>
-                    )}
-                    <button onClick={() => handleForwardMessage(message)} className="flex items-center gap-2 p-2 hover:bg-gray-100">
-                      <Forward className="w-4 h-4" /> Forward
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           ))
