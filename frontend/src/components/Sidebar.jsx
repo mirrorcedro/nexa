@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
 import SidebarSkeleton from "./skeletons/SidebarSkeleton";
-import { Users, Menu } from "lucide-react"; // Added Menu icon for the toggle button
+import { Users } from "lucide-react"; // Updated to use Users icon
 
 const Sidebar = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading, unreadMessages } = useChatStore();
@@ -37,9 +37,7 @@ const Sidebar = () => {
     getUsers();
   }, [getUsers]);
 
-  // Filter users based on online status, search query, or show all users
   // Sort and filter users
-  // Updated sorting logic
   const sortedAndFilteredUsers = users
     .filter((user) => {
       const fullName = user.fullName || "";
@@ -49,22 +47,15 @@ const Sidebar = () => {
       return matchesSearch && (showOnlineOnly ? onlineUsers.includes(user._id) : true);
     })
     .sort((a, b) => {
-      // First priority: last message timestamp
       const aLastMessage = a.lastMessage?.createdAt || 0;
       const bLastMessage = b.lastMessage?.createdAt || 0;
       const timeComparison = new Date(bLastMessage) - new Date(aLastMessage);
-      
-      // If timestamps are different, use them for sorting
+
       if (timeComparison !== 0) return timeComparison;
-      
-      // Second priority: unread messages
       if (unreadMessages[a._id] && !unreadMessages[b._id]) return -1;
       if (!unreadMessages[a._id] && unreadMessages[b._id]) return 1;
-      
-      // Third priority: online status
       if (onlineUsers.includes(a._id) && !onlineUsers.includes(b._id)) return -1;
       if (!onlineUsers.includes(a._id) && onlineUsers.includes(b._id)) return 1;
-      
       return 0;
     });
 
@@ -73,15 +64,16 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Improved toggle button */}
+      {/* Updated chat toggle button */}
       <button
-        className="lg:hidden fixed top-20 left-4 z-50 p-2 bg-primary text-white rounded-full shadow-lg hover:bg-primary-focus transition-all"
+        className="lg:hidden fixed top-20 left-4 z-50 p-2 bg-primary text-white rounded-full shadow-lg hover:bg-primary-focus transition-all flex items-center gap-2"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
-        <Menu className="w-5 h-5" />
+        <Users className="w-6 h-6" />
+        <span className="text-sm font-medium">Chats</span>
       </button>
 
-      {/* Enhanced sidebar with smooth transitions */}
+      {/* Sidebar */}
       <aside
         id="sidebar"
         className={`fixed lg:relative h-[calc(100vh-5rem)] w-72 bg-base-100 border-r border-base-300 
@@ -91,7 +83,7 @@ const Sidebar = () => {
         <div className="border-b border-base-300 w-full p-5">
           <div className="flex items-center gap-2">
             <Users className="size-6" />
-            <span className="font-medium">Contacts</span> {/* Always visible on all screen sizes */}
+            <span className="font-medium">Contacts</span>
           </div>
 
           {/* Online filter toggle */}
