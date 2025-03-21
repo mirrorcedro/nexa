@@ -93,40 +93,35 @@ const ChatContainer = () => {
   );
 
   return (
-    <div className="flex-1 flex flex-col h-full max-h-screen overflow-hidden">
+    <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
-      
-      {/* Filter section with improved responsive design */}
-      <div className="p-2 sm:p-4 border-b bg-base-200/50">
-        <label className="flex items-center gap-2 justify-center sm:justify-start">
+      <div className="p-4 border-b">
+        <label className="flex items-center gap-2">
           <input
             type="checkbox"
             checked={showUnreadOnly}
             onChange={(e) => setShowUnreadOnly(e.target.checked)}
             className="checkbox checkbox-sm"
           />
-          <span className="text-xs sm:text-sm">Show unread messages only</span>
+          <span className="text-sm">Show unread messages only</span>
         </label>
       </div>
-
-      {/* Messages container with improved scrolling and spacing */}
-      <div className="flex-1 overflow-y-auto p-2 sm:p-4 space-y-3 sm:space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {isMessagesLoading ? (
           <MessageSkeleton />
         ) : (
           sortedMessages.map((message) => (
             <div
               key={message._id}
-              className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"} max-w-[85%] sm:max-w-[70%]`}
+              className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
               onMouseEnter={() => {
                 if (!message.isRead && message.senderId !== authUser._id) {
                   handleMessageRead(message._id);
                 }
               }}
             >
-              {/* Avatar with responsive sizing */}
               <div className="chat-image avatar">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden">
+                <div className="w-8 h-8 rounded-full overflow-hidden">
                   <img
                     src={
                       message.senderId === authUser._id
@@ -139,8 +134,7 @@ const ChatContainer = () => {
                 </div>
               </div>
 
-              {/* Message header with improved spacing */}
-              <div className="chat-header mb-1 text-xs sm:text-sm">
+              <div className="chat-header mb-1">
                 {message.isForwarded && (
                   <span className="text-xs opacity-50 block">Forwarded</span>
                 )}
@@ -150,52 +144,46 @@ const ChatContainer = () => {
                     {message.replyTo.text}
                   </div>
                 )}
-                <time className="text-[10px] sm:text-xs opacity-50">
-                  {formatMessageTime(message.createdAt)}
-                </time>
+                <time className="text-xs opacity-50">{formatMessageTime(message.createdAt)}</time>
               </div>
 
-              {/* Message bubble with responsive content */}
               <div className="chat-bubble relative group">
                 {message.text && (
-                  <div className="text-sm sm:text-base">
+                  <>
                     {message.text}
                     {message.isEdited && (
-                      <span className="text-[10px] sm:text-xs opacity-50 ml-2">(edited)</span>
+                      <span className="text-xs opacity-50 ml-2">(edited)</span>
                     )}
-                  </div>
+                  </>
                 )}
 
-                {/* Responsive image sizing */}
                 {message.image && (
                   <div className="mb-2 rounded-lg overflow-hidden">
                     <img
                       src={message.image}
                       alt="Message attachment"
-                      className="max-w-[200px] sm:max-w-[300px] max-h-[200px] sm:max-h-[300px] object-contain"
+                      className="max-w-[300px] max-h-[300px] object-contain"
                       loading="lazy"
                     />
                   </div>
                 )}
 
-                {/* Voice note player with responsive width */}
                 {message.voiceNote && (
-                  <div className="min-w-[180px] sm:min-w-[240px] max-w-[240px] sm:max-w-[320px]">
+                  <div className="min-w-[240px] max-w-[320px]">
                     <VoiceNotePlayer audioUrl={message.voiceNote} />
                   </div>
                 )}
 
-                {/* File attachment with responsive design */}
                 {message.file && (
-                  <div className="flex items-center gap-2 p-2 bg-base-200 rounded-lg text-sm">
-                    <div className="flex-1 truncate max-w-[150px] sm:max-w-[200px]">
-                      <p className="font-medium truncate">{message.file.name}</p>
-                      <p className="text-[10px] sm:text-xs opacity-70">{message.file.size}</p>
+                  <div className="flex items-center gap-2 p-2 bg-base-200 rounded-lg">
+                    <div className="flex-1 truncate">
+                      <p className="text-sm font-medium truncate">{message.file.name}</p>
+                      <p className="text-xs opacity-70">{message.file.size}</p>
                     </div>
                     <a
                       href={message.file.url}
                       download
-                      className="btn btn-xs sm:btn-sm btn-primary"
+                      className="btn btn-sm btn-primary"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -295,11 +283,7 @@ const ChatContainer = () => {
         )}
         <div ref={messageEndRef} />
       </div>
-
-      {/* Message input with proper positioning */}
-      <div className="sticky bottom-0 bg-base-100 border-t">
-        <MessageInput />
-      </div>
+      <MessageInput />
     </div>
   );
 };
